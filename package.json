@@ -1,0 +1,31 @@
+{
+  "name": "mailpimp",
+  "version": "0.0.0",
+  "description": "Pimping e-mail for authors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coverstory/mailpimp.git"
+  },
+  "keywords": [
+    "mailchimp",
+    "mailpimp",
+    "authors"
+  ],
+  "author": "Aaron O'Mullan <aaron.omullan@gmail.com>",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/coverstory/mailpimp/issues"
+  },
+  "homepage": "https://github.com/coverstory/mailpimp#readme",
+  "dependencies": {
+    "express": "^4.13.0",
+    "kramed": "^0.5.0",
+    "lodash": "^3.9.3",
+    "mailchimp-api": "^2.0.7",
+    "q": "^1.4.1"
+  }
+}
