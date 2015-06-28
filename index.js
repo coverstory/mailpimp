@@ -1,9 +1,11 @@
 var path = require('path');
+var kramed = require('kramed');
 var express = require('express');
 var log = console.log.bind(console);
 
 var githubWebhook = require('github-webhook-handler');
 
+var github = require('./lib/services/github');
 var mailchimp = require('./lib/services/mailchimp');
 
 // Create our app
@@ -32,9 +34,23 @@ webhook.on('error', function (err) {
 });
 
 webhook.on('push', function (event) {
-  console.log('Received a push event for %s to %s',
-    event.payload.repository.name,
-    event.payload.ref)
+    // Repo ID
+    var repo = event.payload.repository.full_name;
+
+    var filename = 'chapter1.md';
+
+    github.raw(repo, filename)
+    .then(function(contents) {
+        // Render markdown to HTML
+        return kramed(contents);
+    })
+    .then(function(html) {
+        return mailchimp.createSend(html, filename);
+    })
+    .then(function() {
+        log('Sent new chapter:', filename);
+    })
+    .fail(log);
 });
 
 
