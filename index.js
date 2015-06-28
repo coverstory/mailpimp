@@ -7,6 +7,7 @@ var githubWebhook = require('github-webhook-handler');
 
 var github = require('./lib/services/github');
 var mailchimp = require('./lib/services/mailchimp');
+var commit = require('./lib/commit');
 
 // Create our app
 var app = express();
@@ -36,8 +37,14 @@ webhook.on('error', function (err) {
 webhook.on('push', function (event) {
     // Repo ID
     var repo = event.payload.repository.full_name;
+    var msg = event.payload.head_commit.message;
 
-    var filename = 'chapter1.md';
+    if(!commit.isMail(msg)) {
+        log('Skipping non mail commit:', msg);
+        return;
+    }
+
+    var filename = commit.filename(msg);
 
     github.raw(repo, filename)
     .then(function(contents) {
