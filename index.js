@@ -14,6 +14,10 @@ app.get('/', function(req, res) {
     return res.send('hello');
 });
 
+app.get('/button/subscribe', function(req, res) {
+    return res.redirect('http://eepurl.com/brJmtr');
+});
+
 // Handle webhooks
 var webhook = githubWebhook({ path: '/webhook', secret: 'test', });
 app.post('/webhook', function(req, res) {
