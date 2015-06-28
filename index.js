@@ -1,7 +1,10 @@
 var path = require('path');
 var express = require('express');
 var log = console.log.bind(console);
+
 var githubWebhook = require('github-webhook-handler');
+
+var mailchimp = require('./lib/services/mailchimp');
 
 // Create our app
 var app = express();
